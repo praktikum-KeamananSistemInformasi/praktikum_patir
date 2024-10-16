@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisasi Enkripsi Multi Algoritma</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            resize: none;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            background-color: #4CAF50;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .output {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        #algorithmDescription,
+        #algorithmProcess,
+        #encryptionSolution {
+            font-style: italic;
+            color: #555;
+            margin-top: 10px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 600px) {
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Visualisasi Enkripsi & Dekripsi Multi Algoritma</h2>
+        <p><strong>Input Teks:</strong></p>
+        <textarea id="plaintext" placeholder="Masukkan teks untuk dienkripsi..."></textarea>
+
+        <p><strong>Kata Kunci:</strong></p>
+        <input type="text" id="keyword" placeholder="Masukkan kata kunci...">
+
+        <label for="algorithm">Pilih Algoritma:</label>
+        <select id="algorithm" onchange="updateDescription()">
+            <option value="base64">Base64</option>
+            <option value="caesar">Caesar Cipher (+3)</option>
+            <option value="reverse">Reverse Text</option>
+            <option value="aes">AES-256</option>
+        </select>
+
+        <p id="algorithmDescription"></p>
+        <p id="algorithmProcess"></p>
+
+        <div class="button-container">
+            <button onclick="encrypt()">Enkripsi</button>
+            <button onclick="decrypt()">Dekripsi</button>
+        </div>
+
+        <div class="output">
+            <p><strong>Hasil Enkripsi:</strong></p>
+            <p id="encryptedText"></p>
+            <p id="encryptionSolution"></p>
+        </div>
+
+        <div class="output">
+            <p><strong>Cara Penyelesaian Dekripsi:</strong></p>
+            <p id="decryptionProcess"></p>
+        </div>
+    </div>
+
+    <script>
+        let encryptedGlobal = "";
+
+        function updateDescription() {
+            let algorithm = document.getElementById("algorithm").value;
+            let description = "";
+            let process = "";
+
+            if (algorithm === "base64") {
+                description = "Base64 adalah metode encoding yang mengubah data biner menjadi teks ASCII. Dalam konteks ini, digunakan untuk mengenkripsi dan mendekripsi teks dengan kata kunci sebagai validasi.";
+                process = "Proses Enkripsi: hasil = Base64(plaintext + keyword)\nProses Dekripsi: hasil = Base64 Decode(encryptedText) - keyword";
+            } else if (algorithm === "caesar") {
+                description = "Caesar Cipher adalah metode enkripsi klasik yang menggeser setiap huruf dalam teks dengan jumlah tertentu. Kata kunci digunakan sebagai penentu besar pergeseran.";
+                process = "Proses Enkripsi: hasil = (char + shift) mod 26\nProses Dekripsi: hasil = (char - shift + 26) mod 26";
+            } else if (algorithm === "reverse") {
+                description = "Reverse Text adalah metode sederhana yang membalikkan urutan karakter dalam teks. Kata kunci digunakan untuk validasi.";
+                process = "Proses Enkripsi: hasil = reverse(plaintext + keyword)\nProses Dekripsi: hasil = reverse(encryptedText) - keyword";
+            } else if (algorithm === "aes") {
+                description = "AES-256 adalah standar enkripsi tingkat tinggi yang menggunakan kunci rahasia 256-bit untuk mengamankan data. Kata kunci digunakan sebagai kunci enkripsi.";
+                process = "Proses Enkripsi: hasil = AES.encrypt(plaintext, keyword)\nProses Dekripsi: hasil = AES.decrypt(encryptedText, keyword)";
+            }
+
+            document.getElementById("algorithmDescription").innerText = description;
+            document.getElementById("algorithmProcess").innerText = process;
+        }
+
+        function encrypt() {
+            let plaintext = document.getElementById("plaintext").value;
+            let keyword = document.getElementById("keyword").value;
+            let algorithm = document.getElementById("algorithm").value;
+
+            if (plaintext === "" || keyword === "") {
+                alert("Silakan masukkan teks dan kata kunci untuk dienkripsi!");
+                return;
+            }
+
+            if (algorithm === "base64") {
+                encryptedGlobal = btoa(plaintext + keyword);  // Base64 encoding
+            } else if (algorithm === "caesar") {
+                let shift = calculateShift(keyword);
+                encryptedGlobal = caesarEncrypt(plaintext, shift);
+            } else if (algorithm === "reverse") {
+                encryptedGlobal = reverseText(plaintext + keyword);
+            } else if (algorithm === "aes") {
+                encryptedGlobal = CryptoJS.AES.encrypt(plaintext, keyword).toString();
+            }
+
+            document.getElementById("encryptedText").innerText = encryptedGlobal;
+
+            // Tampilkan penjelasan penyelesaian enkripsi
+            let solution = "";
+            if (algorithm === "base64") {
+                solution = "1. Gabungkan plaintext dengan keyword: " + plaintext + " + " + keyword + "\n" +
+                           "2. Enkripsi menggunakan Base64: hasil = Base64('" + plaintext + keyword + "')";
+            } else if (algorithm === "caesar") {
+                solution = "1. Hitung shift berdasarkan kata kunci: shift = " + calculateShift(keyword) + "\n" +
+                           "2. Geser setiap huruf di plaintext sebanyak " + calculateShift(keyword) + ": hasil = (char + shift) mod 26";
+            } else if (algorithm === "reverse") {
+                solution = "1. Gabungkan plaintext dengan keyword: " + plaintext + " + " + keyword + "\n" +
+                           "2. Balikkan urutan karakter: hasil = reverse('" + plaintext + keyword + "')";
+            } else if (algorithm === "aes") {
+                solution = "1. Enkripsi menggunakan AES-256: hasil = AES.encrypt('" + plaintext + "', '" + keyword + "')";
+            }
+
+            document.getElementById("encryptionSolution").innerText = solution;
+            document.getElementById("decryptionProcess").innerText = ""; // Clear previous process
+        }
+
+        function decrypt() {
+            let algorithm = document.getElementById("algorithm").value;
+            let keyword = document.getElementById("keyword").value;
+
+            if (encryptedGlobal === "" || keyword === "") {
+                alert("Tidak ada teks yang dienkripsi atau kata kunci belum dimasukkan. Lakukan enkripsi terlebih dahulu!");
+                return;
+            }
+
+            let decryptedText = "";
+            let processText = "";
+
+            if (algorithm === "base64") {
+                let decoded = atob(encryptedGlobal);
+                decryptedText = decoded.replace(keyword, "");
+                processText = "1. Decode menggunakan Base64: hasil = Base64 Decode(encryptedText)\n2. Hilangkan kata kunci: hasil = decoded - " + keyword;
+            } else if (algorithm === "caesar") {
+                let shift = calculateShift(keyword);
+                decryptedText = caesarEncrypt(encryptedGlobal, -shift);
+                processText = "1. Hitung shift yang sama: shift = " + calculateShift(keyword) + "\n" +
+                              "2. Geser kembali setiap huruf di encryptedText sebanyak " + -shift + ": hasil = (char - shift + 26) mod 26";
+            } else if (algorithm === "reverse") {
+                let reversed = reverseText(encryptedGlobal);
+                decryptedText = reversed.replace(keyword, "");
+                processText = "1. Balikkan urutan karakter: hasil = reverse(encryptedText)\n2. Hilangkan kata kunci: hasil = reversed - " + keyword;
+            } else if (algorithm === "aes") {
+                let bytes = CryptoJS.AES.decrypt(encryptedGlobal, keyword);
+                decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+                processText = "1. Dekripsi menggunakan AES-256: hasil = AES.decrypt(encryptedText, keyword)";
+            }
+
+            document.getElementById("decryptionProcess").innerText = processText;
+            document.getElementById("encryptedText").innerText = decryptedText; // Output decrypted text
+        }
+
+        function caesarEncrypt(str, shift) {
+            return str.split('').map(function (char) {
+                if (char.match(/[a-z]/i)) {
+                    let code = char.charCodeAt();
+                    let base = (code >= 65 && code <= 90) ? 65 : 97;
+                    return String.fromCharCode(((code - base + shift) % 26 + 26) % 26 + base);
+                }
+                return char;
+            }).join('');
+        }
+
+        function calculateShift(keyword) {
+            let sum = 0;
+            for (let i = 0; i < keyword.length; i++) {
+                sum += keyword.charCodeAt(i);
+            }
+            return sum % 26;
+        }
+
+        function reverseText(str) {
+            return str.split("").reverse().join("");
+        }
+
+        window.onload = updateDescription;
+    </script>
+</body>
+
+</html>
