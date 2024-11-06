@@ -1,142 +1,135 @@
-/* Reset dasar */
 * {
+    text-decoration:none;
+}
+body {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #f4f5fa;
+    color: #020306;
+    font-family: "Euclid Circular A", "Poppins";
   }
   
-  body {
-    font-family: Arial, sans-serif;
-    background: #f4f7f6;
-    color: #333;
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  .cards {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    gap: 30px;
   }
   
-  /* Header dengan latar belakang menarik */
-  header {
-    background: linear-gradient(135deg, #3498db, #2c3e50);
-    color: #fff;
+  article {
+    position: relative;
+    perspective: 1000px;
+    width: 300px;
+    height: 320px;
+  }
+  
+  article .front,
+  article .back {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
     text-align: center;
-    padding: 40px 20px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 700px;
-    margin-bottom: 30px;
-    animation: fadeIn 1s ease;
-  }
-  
-  header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-  }
-  
-  header p {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-  }
-  
-  /* Tombol Mulai */
-  #startButton {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    color: #3498db;
-    background-color: #ecf0f1;
-    border: 2px solid #3498db;
-    border-radius: 8px;
+    backface-visibility: hidden;
+    backdrop-filter: blur(10px);
+    background: #ffffff;
+    box-shadow: rgba(149, 157, 165, 0.05) 0px 8px 24px;
+    border-radius: 16px;
+    padding: 32px;
+    transition: 0.6s;
     cursor: pointer;
-    transition: all 0.3s ease;
   }
   
-  #startButton:hover {
-    background-color: #3498db;
-    color: #fff;
-    transform: scale(1.05);
+  .back {
+    transform: rotateY(180deg);
+  }
+
+  .root_page {
+    font-size:28px;
+    border-radius:10px;
+    padding:10px;
+    transition: ease-in-out 0.3s;
+  }
+
+  .root_page:hover{
+    color:#ffffff;
+    background-color:#643fe1;
+    border-radius:10px;
+    padding:10px;
   }
   
-  /* Efek fade-in */
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  article .material-symbols-outlined {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 34px;
   }
   
-  /* Tampilan utama */
-  #mainContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 700px;
-    width: 100%;
-    animation: fadeInContent 1s ease;
+  input {
+    position: absolute;
+    scale: 0;
   }
   
-  .dropdown {
-    margin: 20px;
+  input:checked ~ article .back {
+    transform: rotateY(0);
   }
   
-  label {
-    font-weight: bold;
-    color: #34495e;
+  input:checked ~ article .front {
+    transform: rotateY(-180deg);
   }
   
-  select {
-    padding: 10px;
-    font-size: 1rem;
-    margin-top: 5px;
-    border: 2px solid #2980b9;
-    border-radius: 5px;
-    color: #34495e;
-    background-color: #ecf0f1;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  article var {
+    font-style: normal;
+    font-size: 64px;
+    line-height: 1;
   }
   
-  select:hover {
-    border-color: #3498db;
+  article h3 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 22px;
+    color: #b2b5c2;
   }
   
-  #info {
-    max-width: 600px;
-    background: #ecf0f1;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
+  #summary {
+    color: #643fe1;
   }
   
-  #info h3 {
-    color: #2980b9;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+  #summary span {
+    background: #edebfb;
   }
   
-  #info p, #info ul {
-    font-size: 1rem;
-    color: #2c3e50;
-    margin-bottom: 10px;
+  #overdue {
+    color: #b02ce1;
   }
   
-  #info ul {
-    list-style-type: disc;
-    padding-left: 20px;
+  #overdue span {
+    background: #f7e8ff;
   }
   
-  #riskGraph {
-    max-width: 600px;
-    margin-top: 30px;
-    border-radius: 8px;
-    background: #fff;
-    padding: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  #features {
+    color: #3ac2f0;
   }
   
-  /* Animasi untuk konten utama */
-  @keyframes fadeInContent {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  #features span {
+    background: #eef9ff;
   }
   
+  article :is(h4, p) {
+    opacity: 0.5;
+    font-size: 20px;
+  }
+  
+  article p {
+    margin: 0;
+    color: #020306;
+  }

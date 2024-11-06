@@ -1,37 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stressmeter Aplikasi</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <header>
-    <h1>Stressmeter Aplikasi</h1>
-    <p>Alat evaluasi ancaman dan mitigasi risiko yang mudah digunakan.</p>
-    <button id="startButton">Mulai</button>
-  </header>
-
-  <section id="mainContent" style="display: none;">
-    <div class="dropdown">
-      <label for="dropdownAset">Pilih Aset:</label>
-      <select id="dropdownAset">
-        <option value="">-- Pilih Aset --</option>
-        <option value="server">Server Aplikasi</option>
-        <option value="database">Database</option>
-        <option value="dataPengguna">Data Pengguna</option>
-        <option value="apiEksternal">API Eksternal</option>
-        <option value="jaringan">Infrastruktur Jaringan</option>
-      </select>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kumpulan Praktikum</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="cards">
+      <label id="summary">
+        <input type="checkbox" />
+        <article>
+          <div class="front">
+            <span class="material-symbols-outlined"> Iframe </span>
+            <h1>Praktikum 1</h1>
+            <h3>Enskripsi dan dekripsi</h3>
+          </div>
+          <div class="back">
+            <a href="./praktikum1/enscripsi.html">
+                <p class="root_page">Go to Page</p>
+            </a>
+          </div>
+        </article>
+      </label>
+      <label id="overdue">
+        <input type="checkbox" />
+        <article>
+          <div class="front">
+            <span class="material-symbols-outlined"> Iframe </span>
+            <h1>Praktikum 2</h1>
+            <h3>manajemen Resiko aset</h3>
+          </div>
+          <div class="back">
+            <a href="./praktikum2/index.html">
+              <p class="root_page">Go to Page</p>
+            </a>
+          </div>
+        </article>
+      </label>
+      <label id="features">
+        <input type="checkbox" />
+        <article>
+          <div class="front">
+            <span class="material-symbols-outlined"> Iframe </span>
+            <h1>Praktikum 3</h1>
+            <h3>Coming soon</h3>
+          </div>
+          <div class="back">
+            <a href="">
+                <p class="root_page">Go to Page</p>
+            </a>
+          </div>
+        </article>
+      </label>
     </div>
-
-    <div id="info"></div>
-
-    <canvas id="riskGraph" width="400" height="200"></canvas>
-  </section>
-
-  <script src="app.js"></script>
-</body>
+  </body>
 </html>

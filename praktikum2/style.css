@@ -1,0 +1,142 @@
+/* Reset dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f7f6;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Header dengan latar belakang menarik */
+  header {
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    color: #fff;
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 30px;
+    animation: fadeIn 1s ease;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  header p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Tombol Mulai */
+  #startButton {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color: #3498db;
+    background-color: #ecf0f1;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  #startButton:hover {
+    background-color: #3498db;
+    color: #fff;
+    transform: scale(1.05);
+  }
+  
+  /* Efek fade-in */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Tampilan utama */
+  #mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    width: 100%;
+    animation: fadeInContent 1s ease;
+  }
+  
+  .dropdown {
+    margin: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  select {
+    padding: 10px;
+    font-size: 1rem;
+    margin-top: 5px;
+    border: 2px solid #2980b9;
+    border-radius: 5px;
+    color: #34495e;
+    background-color: #ecf0f1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  select:hover {
+    border-color: #3498db;
+  }
+  
+  #info {
+    max-width: 600px;
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
+  #info h3 {
+    color: #2980b9;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  #info p, #info ul {
+    font-size: 1rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  #info ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  #riskGraph {
+    max-width: 600px;
+    margin-top: 30px;
+    border-radius: 8px;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Animasi untuk konten utama */
+  @keyframes fadeInContent {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
